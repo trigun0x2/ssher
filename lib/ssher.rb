@@ -1,11 +1,19 @@
 module SSHer
   class Application
-    SERVER_FILE = File.expand_path("../../ssh-servers", __FILE__)
+    SERVER_FILE = File.expand_path("~/.ssher/ssh-servers")
 
     def initialize(argv)
+      if !File.exist?(SERVER_FILE)
+        system("mkdir ~/.ssher")
+        system("touch ~/.ssher/ssh-servers")
+      end
     end
 
     def run
+      if File.zero?(SERVER_FILE)
+        puts "Please add your servers to the ~/.ssher/ssh-servers file."
+        return
+      end
       counter = 1
       server_commands = []
       File.open(SERVER_FILE, "r") do |infile|
