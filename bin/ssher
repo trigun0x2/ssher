@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+require_relative "../lib/ssher.rb"
+SSHer::Application.new(ARGV).run
